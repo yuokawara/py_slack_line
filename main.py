@@ -21,7 +21,7 @@ def callback():
     signature = request.headers['X-Line-Signature']
 
     body = request.get_data(as_text=True)
-    app.logger.info("test Request" + body)
+    # app.logger.info("test Request" + body)
 
     try:
         handler.handle(body, signature)
@@ -41,7 +41,7 @@ def get_event_info(event):
     try:
         user_name = line_bot_api.get_profile(user_id).display_name
     except LineBotApiError as e:
-        user_name = 'unknown'
+        user_name = "unknown"
 
     if event.source.type == "user":
         msg_type = "personal"
