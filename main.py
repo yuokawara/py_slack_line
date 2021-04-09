@@ -4,7 +4,7 @@ import requests
 import slackweb
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
-from linebot exceptions import InvalidSignatureError, LineBotApiError
+from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextMessage
 
 app = Flask(__name__)
