@@ -67,7 +67,7 @@ def handle_text_message(event):
         + "{msg}\n".format(msg=event.message.text) \
         + "---\n" \
 
-    slackweb.notify(text=send_msg)
+    slack_info.notify(text=send_msg)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
