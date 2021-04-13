@@ -96,13 +96,13 @@ def handle_text_message(event):
 #     #send image
 #     files = {'file': img}
 #     param = {
-        'token': BOT_OAUTH,
-        'channels': POST_CHANEL_ID,
-        'filename': file_name,
-        'initial_comment': send_msg,
-        'title': file_name
-    }
-    response = requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
+    #     'token': BOT_OAUTH,
+    #     'channels': POST_CHANEL_ID,
+    #     'filename': file_name,
+    #     'initial_comment': send_msg,
+    #     'title': file_name
+    # }
+    # response = requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
