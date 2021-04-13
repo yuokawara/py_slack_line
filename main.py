@@ -12,6 +12,8 @@ app = Flask(__name__)
 CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 WEB_HOOK_LINKS = os.environ["SLACK_WEB_HOOKS_URL"]
+BOT_OAUTH = os.environ["SLACK_BOT_OAUTH"]
+POST_CHANEL_ID = os.environ["SLACK_POST_CHANEL_ID"]
 
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -68,6 +70,38 @@ def handle_text_message(event):
         + "---\n" \
 
     slack_info.notify(text=send_msg)
+
+# add imageMessage
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image_message(event):
+    """
+    Image Message
+    """
+    
+    #get talk
+    user_id, user_name, msg_type, room_id = get_event_info(event)
+
+    #send lineImage recieve
+    message_id = event.message.id
+    message_content = line_bot_api.get_message_content(message_id)
+    img = message_content.content
+
+    #slack
+    send_msg = "[bot-line]send{user_name}\n".format(user_name=user_name) \
+        + "---\n" \
+        + "{msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
+
+    file_name = "send_image_{message_id}".format(message_id=message_id)
+
+    #send image
+    files = {'file': img}
+    param = {
+        'token': BOT_OAUTH,
+        'channels': POST_CHANEL_ID,
+        'initial_comment': send_msg,
+        'title': file_name
+    }
+    response = requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
