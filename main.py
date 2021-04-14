@@ -116,7 +116,8 @@ def handle_image_message(event):
         'title': file_name,
     }
     print("log", files)
-    requests.post(url, files=files)
+    res = requests.post(url, files=files)
+    print("res", res)
     # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 if __name__ == "__main__":
