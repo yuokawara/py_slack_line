@@ -116,11 +116,7 @@ def handle_image_message(event):
     }
     print("log", files)
     requests.post(url, params=param, files=files)
-    requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
- 
-if __name__ == "__main__":
-    main()
-
+    # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
