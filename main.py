@@ -23,7 +23,7 @@ def callback():
     signature = request.headers['X-Line-Signature']
 
     body = request.get_data(as_text=True)
-    # app.logger.info("test Request" + body)
+    #app.logger.info("test Request" + body)
 
     try:
         handler.handle(body, signature)
