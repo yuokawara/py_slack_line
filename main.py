@@ -89,8 +89,8 @@ def handle_image_message(event):
     #send lineImage recieve
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
-    # img = message_content.content #画像データ
-    img = "https://stars-tech.jp/img/blog1.jpg"
+    img = message_content.content #画像データ
+    # img = "https://stars-tech.jp/img/blog1.jpg"
     print('event', event)
 
     #slack
@@ -105,7 +105,7 @@ def handle_image_message(event):
     #send image
     # file = os.path.abspath(img)
     url = 'https://slack.com/api/files.upload'
-    files = {'file': img}
+    files = {'file': open("https://stars-tech.jp/img/blog1.jpg")}
     # print("test path", os.path.abspath(img))
     param = {
         'token': BOT_OAUTH,
@@ -113,10 +113,13 @@ def handle_image_message(event):
         'filename': file_name,
         'initial_comment': send_msg,
         'title': file_name,
-        'files': img
     }
-    print("log", param, url)
+    print("log", files)
     requests.post(url, params=param, files=files)
+    requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
+ 
+if __name__ == "__main__":
+    main()
 
 
 if __name__ == "__main__":
