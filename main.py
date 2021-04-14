@@ -115,7 +115,6 @@ def handle_image_message(event):
     }
     print("log", param, url)
     requests.post(url, params=param, files=files)
-    event.send('アップロードテスト中')
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
