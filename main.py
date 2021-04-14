@@ -54,6 +54,11 @@ def get_event_info(event):
         msg_type = "multitalk"
         room_id = event.source.group_id
         return user_id, user_name, msg_type, room_id
+    
+    if event.source.type == "group":
+        msg_type = "grouptalk"
+        room_id = event.source.group_id
+        return user_id, user_name, msg_type, room_id
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
@@ -72,38 +77,38 @@ def handle_text_message(event):
     slack_info.notify(text=send_msg)
 
 
-@handler.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event):
-    """
-    Image Message
-    """
+# @handler.add(MessageEvent, message=ImageMessage)
+# def handle_image_message(event):
+#     """
+#     Image Message
+#     """
     
-    #get talk
-    user_id, user_name, msg_type, room_id = get_event_info(event)
+#     #get talk
+#     user_id, user_name, msg_type, room_id = get_event_info(event)
 
-    #send lineImage recieve
-    message_id = event.message.id
-    message_content = line_bot_api.get_message_content(message_id)
-    img = message_content.content
+#     #send lineImage recieve
+#     message_id = event.message.id
+#     message_content = line_bot_api.get_message_content(message_id)
+#     img = message_content.content
 
-    #slack
-    send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
-        + "---\n" \
-        + "{msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
-        + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
+#     #slack
+#     send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
+#         + "---\n" \
+#         + "{msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
+#         + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
-    file_name = "send_image_{message_id}".format(message_id=message_id)
+#     file_name = "send_image_{message_id}".format(message_id=message_id)
 
-    #send image
-    files = {'file': img}
-    param = {
-        'token': BOT_OAUTH,
-        'channels': POST_CHANEL_ID,
-        'filename': file_name,
-        'initial_comment': send_msg,
-        'title': file_name
-    }
-    response = requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
+#     #send image
+#     files = {'file': img}
+#     param = {
+#         'token': BOT_OAUTH,
+#         'channels': POST_CHANEL_ID,
+#         'filename': file_name,
+#         'initial_comment': send_msg,
+#         'title': file_name
+#     }
+#     response = requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
