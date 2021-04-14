@@ -23,7 +23,7 @@ def callback():
     signature = request.headers['X-Line-Signature']
 
     body = request.get_data(as_text=True)
-    #app.logger.info("test Request" + body)
+    # app.logger("test Request" + body)
 
     try:
         handler.handle(body, signature)
@@ -89,7 +89,8 @@ def handle_image_message(event):
     #send lineImage recieve
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
-    img = message_content.content #画像データ
+    # img = message_content.content #画像データ
+    img = "https://stars-tech.jp/img/blog1.jpg"
     print('event', event)
 
     #slack
@@ -111,10 +112,12 @@ def handle_image_message(event):
         'channels': POST_CHANEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
-        'title': file_name
+        'title': file_name,
+        'files': img
     }
     print("log", param, url)
     requests.post(url, params=param, files=files)
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
