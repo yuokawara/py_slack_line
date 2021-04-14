@@ -102,7 +102,7 @@ def handle_image_message(event):
 
     #send image
     url = 'https://slack.com/api/files.upload'
-    files = {'file': img}
+    files = {'file': open(img)}
     param = {
         'token': BOT_OAUTH,
         'channels': POST_CHANEL_ID,
