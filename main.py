@@ -91,7 +91,6 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(message_id)
     img = message_content.content
     print('event', event)
-    print('message_content', message_content.content)
 
     #slack
     send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
@@ -102,7 +101,8 @@ def handle_image_message(event):
     file_name = "send_image_{message_id}".format(message_id=message_id)
 
     #send image
-    files = {'file': img}
+    url = 'https://slack.com/api/files.upload'
+    files = {'file': open(img, 'rb')}
     param = {
         'token': BOT_OAUTH,
         'channels': POST_CHANEL_ID,
@@ -111,7 +111,7 @@ def handle_image_message(event):
         'title': file_name
     }
     print("log", param)
-    requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
+    requests.post(url, params=param, files=files)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
