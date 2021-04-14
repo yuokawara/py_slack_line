@@ -91,6 +91,7 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(message_id)
     img = message_content.content
     print('event', event)
+    print('message_content', message_content)
 
     #slack
     send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
