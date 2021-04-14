@@ -52,7 +52,7 @@ def get_event_info(event):
 
     if event.source.type == "room":
         msg_type = "multitalk"
-        room_id = event.source.group_id
+        room_id = event.source.room_id
         return user_id, user_name, msg_type, room_id
     
     if event.source.type == "group":
