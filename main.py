@@ -100,7 +100,7 @@ def handle_image_message(event):
     file_name = "send_image_{message_id}".format(message_id=message_id)
 
     #send image
-    files = {'img': open(img, 'rb')}
+    files = {'file': img}
     param = {
         'token': BOT_OAUTH,
         'channels': POST_CHANEL_ID,
