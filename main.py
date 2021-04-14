@@ -98,14 +98,14 @@ def handle_image_message(event):
         + "{msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
         + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
-    file_name = "send_image_{message_id}".format(message_id=message_id)
+    file_name = format(message_id=message_id)
     print('filename', file_name)
 
     #send image
-    file = os.path.abspath(img)
+    # file = os.path.abspath(img)
     url = 'https://slack.com/api/files.upload'
-    files = {'file': file}
-    #print("test path", os.path.abspath(img))
+    files = {'file': img}
+    # print("test path", os.path.abspath(img))
     param = {
         'token': BOT_OAUTH,
         'channels': POST_CHANEL_ID,
@@ -113,7 +113,7 @@ def handle_image_message(event):
         'initial_comment': send_msg,
         'title': file_name
     }
-    print("log", param)
+    print("log", param, url)
     requests.post(url, params=param, files=files)
 
 if __name__ == "__main__":
