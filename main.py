@@ -100,7 +100,7 @@ def handle_image_message(event):
         + "送信者: {user_name}".format(user_name=user_name, user_id=user_id)
 
     file_name = "{message_id}".format(message_id=message_id)
-    print('filename', file_name)
+    # print('filename', file_name)
 
     #send image
     # file = os.path.abspath(img)
@@ -115,7 +115,7 @@ def handle_image_message(event):
         'initial_comment': send_msg,
         'title': file_name,
     }
-    print("log", files)
+    print("log")
     res = requests.post(url, params=param, files=files)
     print("res", res)
     # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
