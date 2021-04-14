@@ -3,7 +3,6 @@ import os
 import requests
 import slackweb
 from flask import Flask, request, abort
-from slacker import Slacker
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextMessage, ImageMessage
@@ -105,19 +104,15 @@ def handle_image_message(event):
     #send image
     url = 'https://slack.com/api/files.upload'
     files = {'file': img}
-    token = BOT_OAUTH,
-    channels = POST_CHANEL_ID,
-    # param = {
-    #     'token': BOT_OAUTH,
-    #     'channels': POST_CHANEL_ID,
-    #     'filename': file_name,
-    #     'initial_comment': send_msg,
-    #     'title': file_name
-    # }
-    slacker = Slacker(token)
-    slacker.files.upload(file_=files, channels=channels)
+    param = {
+        'token': BOT_OAUTH,
+        'channels': POST_CHANEL_ID,
+        'filename': file_name,
+        'initial_comment': send_msg,
+        'title': file_name
+    }
     #print("log", param)
-    #requests.post(url, params=param, files=files)
+    requests.post(url, params=param, files=files)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
