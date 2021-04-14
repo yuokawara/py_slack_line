@@ -91,7 +91,7 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(message_id)
     img = message_content.content #画像データ
     # img = "https://stars-tech.jp/img/blog1.jpg"
-    print('event', event)
+    print('get line event', message_content)
 
     #slack
     send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
@@ -115,7 +115,7 @@ def handle_image_message(event):
         'initial_comment': send_msg,
         'title': file_name,
     }
-    print("log")
+    print("send slack log", param)
     res = requests.post(url, params=param, files=files)
     print("res", res)
     # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
