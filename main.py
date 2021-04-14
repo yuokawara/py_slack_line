@@ -89,7 +89,7 @@ def handle_image_message(event):
     #send lineImage recieve
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
-    img = message_content.content
+    img = message_content.content #画像データ
     print('event', event)
 
     #slack
@@ -99,6 +99,7 @@ def handle_image_message(event):
         + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
     file_name = "send_image_{message_id}".format(message_id=message_id)
+    print('filename', file_name)
 
     #send image
     url = 'https://slack.com/api/files.upload'
@@ -111,8 +112,7 @@ def handle_image_message(event):
         'title': file_name
     }
     #print("log", param)
-    response = requests.post(url, params=param, files=files)
-    print('response', response)
+    requests.post(url, params=param, files=files)
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
