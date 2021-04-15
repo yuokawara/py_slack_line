@@ -112,10 +112,11 @@ def handle_image_message(event):
                + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
     file_name = "send_image_{message_id}".format(message_id=message_id)
-
+    src = img
     #send image
     url = 'https://slack.com/api/files.upload'
-    files = {'file': img}
+    # files = {'file': img}
+    files = {'file': open(src, 'rb')}
     # print("test path", os.path.abspath(img))
     param = {
         'user': user_id,
