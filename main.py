@@ -101,7 +101,7 @@ def handle_image_message(event):
                + "送信元: {msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
                + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
-    file_name = "send_image_{message_id}".format(message_id=message_id)
+    file_name = "send_image_{message_id}.jpg".format(message_id=message_id)
 
     #send image
     url = 'https://slack.com/api/files.upload'
