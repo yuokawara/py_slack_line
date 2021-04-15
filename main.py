@@ -1,6 +1,6 @@
 import os
 
-import requests
+import requests, json
 import slackweb
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
@@ -125,8 +125,11 @@ def handle_image_message(event):
         'title': file_name,
     }
     print("!!! send slack log !!!", param)
-    res = requests.post(url, params=param, files=files, headers=headers)
-    print("res", res.json())
+    # res = requests.post(url, params=param, files=files, headers=headers)
+    request.post(WEB_HOOK_LINKS, json.dumps({
+        'text': "hello world"
+    }))
+    #  print("res", res.json())
     # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 if __name__ == "__main__":
