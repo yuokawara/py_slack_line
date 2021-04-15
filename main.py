@@ -121,19 +121,19 @@ def handle_image_message(event):
     flipped_img.show()
 
     #send image
-    url = 'https://slack.com/api/files.upload'
-    files = {'file': img}
-    param = {
-        'user': user_id,
-        'token': BOT_OAUTH,
-        'channels': POST_CHANNEL_ID,
-        'filename': file_name,
-        'initial_comment': send_msg,
-        'title': file_name,
-    }
-    print("!!! send slack log !!!", param)
-    res = requests.post(url, params=param, files=files)
-    print("res", res.json())
+    # url = 'https://slack.com/api/files.upload'
+    # files = {'file': img}
+    # param = {
+    #     'user': user_id,
+    #     'token': BOT_OAUTH,
+    #     'channels': POST_CHANNEL_ID,
+    #     'filename': file_name,
+    #     'initial_comment': send_msg,
+    #     'title': file_name,
+    # }
+    # print("!!! send slack log !!!", param)
+    # res = requests.post(url, params=param, files=files)
+    # print("res", res.json())
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
