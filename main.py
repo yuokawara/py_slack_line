@@ -70,6 +70,7 @@ def handle_text_message(event):
     """
 
     slack_info = slackweb.Slack(url=WEB_HOOK_LINKS)
+    print("!!! get slack info !!!", slack_info)
 
     user_id, user_name, msg_type, room_id = get_event_info(event)
 
@@ -79,7 +80,7 @@ def handle_text_message(event):
 
     slack_info.notify(text=send_msg)
 
-
+# image file
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     """
@@ -93,22 +94,12 @@ def handle_image_message(event):
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
     img = message_content.content #画像データ
-    # img = "https://stars-tech.jp/img/blog1.jpg"
-    print('get line event', message_id)
 
     #slack
-    # send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
-    #     + "---\n" \
-    #     + "{msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
-    #     + "送信者: {user_name}".format(user_name=user_name, user_id=user_id)
-
-    file_name = "{message_id}".format(message_id=message_id)
-    # print('filename', file_name)
-    send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
+    send_msg = "[bot-line] {user_name}\n".format(user_name=user_name)
+    file_name = "send_image_{message_id}".format(message_id=message_id)
 
     #send image
-    # file = os.path.abspath(img)
-    # file = '/sp_test_height.JPG'
     url = 'https://slack.com/api/files.upload'
     files = {'file': img}
     # print("test path", os.path.abspath(img))
