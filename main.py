@@ -125,10 +125,10 @@ def handle_image_message(event):
         'title': file_name,
     }
     print("!!! send slack log !!!", param)
-    # res = requests.post(url, params=param, files=files, headers=headers)
-    requests.post(WEB_HOOK_LINKS, json.dumps({
-        'text': "hello world"
-    }))
+    res = requests.post(WEB_HOOK_LINKS, params=param, files=files, headers=headers)
+    # requests.post(WEB_HOOK_LINKS, json.dumps({
+    #     'text': "hello world"
+    # }))
     #  print("res", res.json())
     # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
