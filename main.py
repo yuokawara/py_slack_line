@@ -18,6 +18,7 @@ POST_CHANNEL_ID = os.environ["SLACK_POST_CHANNEL_ID"]
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
 
+#line
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -41,12 +42,15 @@ def get_event_info(event):
     """
 
     print("!!! get eventtype !!!", event.source)
+
+    #get username
     user_id = event.source.user_id
     try:
         user_name = line_bot_api.get_profile(user_id).display_name
     except LineBotApiError as e:
         user_name = "unknown"
 
+    #get info talk
     if event.source.type == "user":
         msg_type = "personal"
         room_id = None
@@ -60,6 +64,11 @@ def get_event_info(event):
     if event.source.type == "group":
         msg_type = "grouptalk"
         room_id = event.source.group_id
+        return user_id, user_name, msg_type, room_id
+
+    if event.source.type == "image":
+        msg_type = "image"
+        room_id = None
         return user_id, user_name, msg_type, room_id
 
 
