@@ -70,14 +70,14 @@ def handle_text_message(event):
     """
 
     slack_info = slackweb.Slack(url=WEB_HOOK_LINKS)
-    print("!!! get slack info !!!", slack_info)
-
+    
     user_id, user_name, msg_type, room_id = get_event_info(event)
 
     send_msg = "[bot-line] {user_name}\n".format(user_name=user_name) \
         + "{msg}\n".format(msg=event.message.text) \
         + "---\n" \
 
+    print("!!! get slack info !!!", slack_info)
     slack_info.notify(text=send_msg)
 
 # image file
@@ -100,7 +100,7 @@ def handle_image_message(event):
                + "---\n" \
                + "送信元: {msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
                + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
-               
+
     file_name = "send_image_{message_id}".format(message_id=message_id)
 
     #send image
