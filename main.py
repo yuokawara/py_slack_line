@@ -13,7 +13,7 @@ CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 WEB_HOOK_LINKS = os.environ["SLACK_WEB_HOOKS_URL"]
 BOT_OAUTH = os.environ["SLACK_BOT_OAUTH"]
-POST_CHANEL_ID = os.environ["SLACK_POST_CHANEL_ID"]
+POST_CHANNEL_ID = os.environ["SLACK_POST_CHANNEL_ID"]
 
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -101,7 +101,7 @@ def handle_image_message(event):
                + "送信元: {msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
                + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
-    file_name = "send_image_{message_id}.jpg".format(message_id=message_id)
+    file_name = "send_image_{message_id}".format(message_id=message_id)
 
     #send image
     url = 'https://slack.com/api/files.upload'
