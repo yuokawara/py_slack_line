@@ -40,6 +40,7 @@ def get_event_info(event):
     :rtype: str, str, str, str
     """
 
+    print("!!! get eventtype !!!", event.source.type)
     user_id = event.source.user_id
     try:
         user_name = line_bot_api.get_profile(user_id).display_name
@@ -61,7 +62,6 @@ def get_event_info(event):
         room_id = event.source.group_id
         return user_id, user_name, msg_type, room_id
 
-    print("!!! get eventtype !!!", event.source.type)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
