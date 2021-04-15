@@ -119,7 +119,7 @@ def handle_image_message(event):
     # print("test path", os.path.abspath(img))
     param = {
         'user': user_id,
-        'token': BOT_OAUTH,
+        'token': USER_OAUTH,
         'channels': POST_CHANNEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
