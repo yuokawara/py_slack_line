@@ -112,13 +112,13 @@ def handle_image_message(event):
                + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
     file_name = "send_image_{message_id}".format(message_id=message_id)
-    headers = {"Authorization" : "Bearer "+ USER_OAUTH}
+    headers = {"Authorization" : "Bearer "+ BOT_OAUTH}
     #send image
     url = 'https://slack.com/api/files.upload'
     files = {'file': img}
     param = {
         'user': user_id,
-        'token': BOT_OAUTH,
+        'token': USER_OAUTH,
         'channels': POST_CHANNEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
