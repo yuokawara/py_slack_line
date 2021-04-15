@@ -61,6 +61,8 @@ def get_event_info(event):
         room_id = event.source.group_id
         return user_id, user_name, msg_type, room_id
 
+    print("!!! get eventtype !!!", event.source.type)
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     """
