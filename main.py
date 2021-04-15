@@ -112,7 +112,6 @@ def handle_image_message(event):
                + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
     file_name = "send_image_{message_id}".format(message_id=message_id)
-    # headers = {"Authorization" : "Bearer "+ BOT_OAUTH}
     #send image
     url = 'https://slack.com/api/files.upload'
     files = {'file': img}
@@ -126,11 +125,7 @@ def handle_image_message(event):
     }
     print("!!! send slack log !!!", param)
     res = requests.post(url, params=param, files=files)
-    # requests.post(WEB_HOOK_LINKS, json.dumps({
-    #     'text': "hello world"
-    # }))
-    print("res", res)
-    # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
+    print("res", res.json())
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
