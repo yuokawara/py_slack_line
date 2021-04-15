@@ -40,7 +40,7 @@ def get_event_info(event):
     :rtype: str, str, str, str
     """
 
-    print("!!! get eventtype !!!", event.source.type)
+    print("!!! get eventtype !!!", event.source)
     user_id = event.source.user_id
     try:
         user_name = line_bot_api.get_profile(user_id).display_name
