@@ -3,6 +3,8 @@ import os
 import requests, json
 import slackweb
 from flask import Flask, request, abort
+from io import BytesIO
+from PIL import Image, ImageOps
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextMessage, ImageMessage
@@ -112,6 +114,12 @@ def handle_image_message(event):
                + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
 
     file_name = "send_image_{message_id}".format(message_id=message_id)
+    
+    getimg = requests.get(img)
+    pillowimg = Image.open(BytesIO(getimg.content))
+    flipped_img = ImageOps.flip(pillowimg)
+    flipped_img.show()
+
     #send image
     url = 'https://slack.com/api/files.upload'
     files = {'file': img}
