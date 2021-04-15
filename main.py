@@ -14,6 +14,7 @@ CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 WEB_HOOK_LINKS = os.environ["SLACK_WEB_HOOKS_URL"]
 BOT_OAUTH = os.environ["SLACK_BOT_OAUTH"]
 POST_CHANNEL_ID = os.environ["SLACK_POST_CHANNEL_ID"]
+USER_OAUTH = os.environ["SLACK_USER_OAUTH"]
 
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -117,7 +118,7 @@ def handle_image_message(event):
     files = {'file': img}
     # print("test path", os.path.abspath(img))
     param = {
-        'token': BOT_OAUTH,
+        'token': USER_OAUTH,
         'channels': POST_CHANNEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
