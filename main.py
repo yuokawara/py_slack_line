@@ -115,7 +115,7 @@ def handle_image_message(event):
 
     #send image
     url = 'https://slack.com/api/files.upload'
-    files = {'file': open("img", 'rb')}
+    files = {'file': "img"}
     # print("test path", os.path.abspath(img))
     param = {
         'token': BOT_OAUTH,
