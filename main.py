@@ -126,7 +126,7 @@ def handle_image_message(event):
     }
     print("!!! send slack log !!!", param)
     # res = requests.post(url, params=param, files=files, headers=headers)
-    request.post(WEB_HOOK_LINKS, json.dumps({
+    requests.post(WEB_HOOK_LINKS, json.dumps({
         'text': "hello world"
     }))
     #  print("res", res.json())
