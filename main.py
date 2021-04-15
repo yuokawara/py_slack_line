@@ -115,7 +115,7 @@ def handle_image_message(event):
 
     #send image
     url = 'https://slack.com/api/files.upload'
-    files = {'file': img}
+    files = {'file': open("img", 'rb')}
     # print("test path", os.path.abspath(img))
     param = {
         'token': BOT_OAUTH,
@@ -125,9 +125,8 @@ def handle_image_message(event):
         'title': file_name,
     }
     print("send slack log", param)
-    res = requests.post(url, params=param, files=files)
-    print("res", res.json())
-    return res
+    requests.post(url, params=param, files=files)
+    # print("res", res.json())
     # requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 if __name__ == "__main__":
