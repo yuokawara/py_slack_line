@@ -114,7 +114,7 @@ def handle_image_message(event):
     file_name = "send_image_{message_id}".format(message_id=message_id)
 
     #send image
-    url = 'https://slack.com/api/files.upload'
+    url = 'SLACK_WEB_HOOKS_URL'
     files = {'file': img}
     # print("test path", os.path.abspath(img))
     param = {
