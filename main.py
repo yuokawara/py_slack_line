@@ -133,7 +133,7 @@ def handle_image_message(event):
         'title': file_name,
     }
     print("!!! send slack log !!!", param)
-    res = requests.get(url, params=param, files=files)
+    res = requests.post(url, params=param, files=files)
     print("res", res.json())
 
 if __name__ == "__main__":
