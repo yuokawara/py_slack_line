@@ -127,7 +127,7 @@ def handle_image_message(event):
     files = {'file': img}
     param = {
         'user': user_id,
-        'token': BOT_OAUTH,
+        # 'token': BOT_OAUTH,
         'channels': POST_CHANNEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
