@@ -123,17 +123,18 @@ def handle_image_message(event):
 
     #send image
     url = 'https://slack.com/api/files.upload'
+    headers = {"Authorization" : "Bearer "+ BOT_OAUTH}
     files = {'file': img}
     param = {
         'user': user_id,
-        'token': USER_OAUTH,
+        'token': BOT_OAUTH,
         'channels': POST_CHANNEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
         'title': file_name,
     }
     print("!!! send slack log !!!", param)
-    res = requests.post(url, params=param, files=files)
+    res = requests.post(url, params=param, files=files, headers=headers)
     print("res", res.json())
 
 if __name__ == "__main__":
