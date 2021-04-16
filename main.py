@@ -7,7 +7,7 @@ from io import BytesIO
 from PIL import Image, ImageOps
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
-from linebot.models import MessageEvent, TextMessage, ImageMessage, VideoSendMessage
+from linebot.models import MessageEvent, TextMessage, ImageMessage, VideoMessage
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def callback():
 
     body = request.get_data(as_text=True)
     # app.logger("test Request" + body)
-    print("!!! callback body !!!", body)
+    print("!!! callback body !!!", body.events.source)
 
     try:
         handler.handle(body, signature)
@@ -44,7 +44,7 @@ def get_event_info(event):
     :rtype: str, str, str, str
     """
 
-    print("!!! get eventtype !!!", event.source)
+    print("!!! get eventtype !!!", event.source.type)
 
     #get username
     user_id = event.source.user_id
@@ -136,7 +136,7 @@ def handle_image_message(event):
     print("res", res.json())
 
 # todo Video
-@handler.add(MessageEvent, message=VideoSendMessage)
+@handler.add(MessageEvent, message=VideoMessage)
 def handle_video_message(event):
 
     user_id, user_name, msg_type, room_id = get_event_info(event)
