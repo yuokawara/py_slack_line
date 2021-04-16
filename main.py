@@ -7,7 +7,7 @@ from io import BytesIO
 from PIL import Image, ImageOps
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
-from linebot.models import MessageEvent, TextMessage, ImageMessage
+from linebot.models import MessageEvent, TextMessage, ImageMessage, VideoSendMessage
 
 app = Flask(__name__)
 
@@ -111,8 +111,7 @@ def handle_image_message(event):
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
     img = message_content.content #画像データ
-    # img = "/Users/okawarayu/Desktop/py_line_slack/sp_test_height.JPG"
-
+ 
     #slack
     send_msg = "[bot-line] {user_name} 画像を送信．\n".format(user_name=user_name) \
                + "---\n" \
@@ -121,18 +120,12 @@ def handle_image_message(event):
 
     file_name = "send_image_{message_id}".format(message_id=message_id)
     
-    # getimg = requests.get(img)
-    # pillowimg = Image.open(BytesIO(getimg.content))
-    # flipped_img = ImageOps.flip(pillowimg)
-    # flipped_img.show()
-
     #send image
     url = 'https://slack.com/api/files.upload'
     headers = {"Authorization" : "Bearer "+ USER_OAUTH}
     files = {'file': img}
     param = {
         'user': user_id,
-        # 'token': BOT_OAUTH,
         'channels': POST_CHANNEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
@@ -141,6 +134,39 @@ def handle_image_message(event):
     print("!!! send slack log !!!", param)
     res = requests.post(url, params=param, files=files, headers=headers)
     print("res", res.json())
+
+@handler.add(MessageEvent, message=VideoSendMessage)
+def handle_video_message(event):
+
+    user_id, user_name, msg_type, room_id = get_event_info(event)
+
+    message_id = event.message.id
+    message_content = line_bot_api.get_message_content(message_id)
+    video = message_content.content
+    print('!!! get video event !!!', event)
+
+    send_msg = "[bot-line] {user_name} 動画を送信．\n".format(user_name=user_name) \
+               + "---\n" \
+               + "送信元: {msg_type} ( {room_id} )\n".format(msg_type=msg_type, room_id=room_id) \
+               + "送信者: {user_name} ( {user_id} )".format(user_name=user_name, user_id=user_id)
+
+    file_name = "send_image_{message_id}".format(message_id=message_id)
+
+    url = 'https://slack.com/api/files.upload'
+    headers = {"Authorization" : "Bearer "+ USER_OAUTH}
+    files = {'file': video}
+    param = {
+        'user': user_id,
+        # 'token': BOT_OAUTH,
+        'channels': POST_CHANNEL_ID,
+        'filename': file_name,
+        'initial_comment': send_msg,
+        'title': file_name,
+    }
+    print("!!! send slack video log !!!", param)
+    res = requests.post(url, params=param, files=files, headers=headers)
+    print("video res", res.json())
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
