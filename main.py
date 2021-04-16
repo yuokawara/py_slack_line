@@ -105,7 +105,8 @@ def handle_image_message(event):
     #send lineImage recieve
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
-    img = message_content.content #画像データ
+    # img = message_content.content #画像データ
+    img = "/Users/okawarayu/Desktop/py_line_slack/sp_test_height.JPG"
 
     #slack
     send_msg = "[bot-line] {user_name} 画像を送信．\n".format(user_name=user_name) \
