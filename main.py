@@ -74,6 +74,11 @@ def get_event_info(event):
         room_id = None
         return user_id, user_name, msg_type, room_id
 
+    if event.source.type == "video":
+        msg_type = "video"
+        room_id = None
+        return user_id, user_name, msg_type, room_id
+
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
