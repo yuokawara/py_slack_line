@@ -27,7 +27,6 @@ def callback():
     signature = request.headers['X-Line-Signature']
 
     body = request.get_data(as_text=True)
-    # app.logger("test Request" + body)
     print("!!! callback body !!!", body)
 
     try:
@@ -158,7 +157,6 @@ def handle_video_message(event):
     files = {'file': video}
     param = {
         'user': user_id,
-        # 'token': BOT_OAUTH,
         'channels': POST_CHANNEL_ID,
         'filename': file_name,
         'initial_comment': send_msg,
