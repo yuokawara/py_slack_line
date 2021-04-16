@@ -123,7 +123,7 @@ def handle_image_message(event):
 
     #send image
     url = 'https://slack.com/api/files.upload'
-    headers = {"Authorization" : "Bearer "+ BOT_OAUTH}
+    headers = {"Authorization" : "Bearer "+ USER_OAUTH}
     files = {'file': img}
     param = {
         'user': user_id,
