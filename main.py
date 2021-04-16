@@ -105,8 +105,8 @@ def handle_image_message(event):
     #send lineImage recieve
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
-    # img = message_content.content #画像データ
-    img = "/Users/okawarayu/Desktop/py_line_slack/sp_test_height.JPG"
+    img = message_content.content #画像データ
+    # img = "/Users/okawarayu/Desktop/py_line_slack/sp_test_height.JPG"
 
     #slack
     send_msg = "[bot-line] {user_name} 画像を送信．\n".format(user_name=user_name) \
@@ -116,25 +116,25 @@ def handle_image_message(event):
 
     file_name = "send_image_{message_id}".format(message_id=message_id)
     
-    getimg = requests.get(img)
-    pillowimg = Image.open(BytesIO(getimg.content))
-    flipped_img = ImageOps.flip(pillowimg)
-    flipped_img.show()
+    # getimg = requests.get(img)
+    # pillowimg = Image.open(BytesIO(getimg.content))
+    # flipped_img = ImageOps.flip(pillowimg)
+    # flipped_img.show()
 
     #send image
-    # url = 'https://slack.com/api/files.upload'
-    # files = {'file': img}
-    # param = {
-    #     'user': user_id,
-    #     'token': BOT_OAUTH,
-    #     'channels': POST_CHANNEL_ID,
-    #     'filename': file_name,
-    #     'initial_comment': send_msg,
-    #     'title': file_name,
-    # }
-    # print("!!! send slack log !!!", param)
-    # res = requests.post(url, params=param, files=files)
-    # print("res", res.json())
+    url = 'https://slack.com/api/files.upload'
+    files = {'file': img}
+    param = {
+        'user': user_id,
+        'token': BOT_OAUTH,
+        'channels': POST_CHANNEL_ID,
+        'filename': file_name,
+        'initial_comment': send_msg,
+        'title': file_name,
+    }
+    print("!!! send slack log !!!", param)
+    res = requests.get(url, params=param, files=files)
+    print("res", res.json())
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
